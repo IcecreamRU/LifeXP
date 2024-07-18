@@ -1,4 +1,4 @@
-package ru.icecreamru.lifexp.ui.theme
+package ru.icecreamru.lifexp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

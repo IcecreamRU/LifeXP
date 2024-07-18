@@ -1,4 +1,4 @@
-package ru.icecreamru.lifexp.ui.theme
+package ru.icecreamru.lifexp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
