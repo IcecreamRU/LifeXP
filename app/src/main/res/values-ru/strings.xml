@@ -15,4 +15,9 @@
     <string name="error_updating_action">Ошибка обновления действия: %s</string>
     <string name="congratulations">Поздравляем!</string>
     <string name="level_up_message">Вы достигли 1000 очков опыта!</string>
+    <string name="ok">Ок</string>
+    <string name="training">Тренировка</string>
+    <string name="walking">Прогулка</string>
+    <string name="smoking_hookah">Курение кальяна</string>
+    <string name="experience">Опыт</string>
 </resources>

@@ -1,18 +1,23 @@
 <resources>
     <string name="app_name" translatable="false">LifeXP</string>
     <string name="current_experience">Current Experience: %d</string>
-    <string name="add_action">Добавить действие</string>
-    <string name="delete_action">Удалить действие</string>
-    <string name="action_name">Название действия</string>
-    <string name="experience_points">Очки опыта</string>
-    <string name="is_positive">Положительное действие</string>
-    <string name="save">Сохранить</string>
-    <string name="cancel">Отмена</string>
-    <string name="error_loading_data">Ошибка загрузки данных: %s</string>
-    <string name="error_performing_action">Ошибка выполнения действия: %s</string>
-    <string name="error_adding_action">Ошибка добавления действия: %s</string>
-    <string name="error_deleting_action">Ошибка удаления действия: %s</string>
-    <string name="error_updating_action">Ошибка обновления действия: %s</string>
-    <string name="congratulations">Поздравляем!</string>
-    <string name="level_up_message">Вы достигли 1000 очков опыта!</string>
+    <string name="experience">Experience</string>
+    <string name="add_action">Add Action</string>
+    <string name="delete_action">Delete Action</string>
+    <string name="action_name">Action Name</string>
+    <string name="experience_points">Experience Points</string>
+    <string name="is_positive">Positive Action</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_loading_data">Error loading data: %s</string>
+    <string name="error_performing_action">Error performing action: %s</string>
+    <string name="error_adding_action">Error adding action: %s</string>
+    <string name="error_deleting_action">Error deleting action: %s</string>
+    <string name="error_updating_action">Error updating action: %s</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="level_up_message">You have reached 1000 experience points!</string>
+    <string name="ok">OK</string>
+    <string name="training">Training</string>
+    <string name="walking">Walking</string>
+    <string name="smoking_hookah">Smoking Hookah</string>
 </resources>
