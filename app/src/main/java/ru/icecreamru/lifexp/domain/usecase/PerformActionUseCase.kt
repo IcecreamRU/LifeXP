@@ -6,16 +6,8 @@ import javax.inject.Inject
 
 class PerformActionUseCase @Inject constructor(private val repository: ActionRepository) {
     suspend operator fun invoke(action: Action) {
-        repository.updateExperience(action.experiencePoints)
+        val currentExperience = repository.getCurrentExperience()
+        val newExperience = (currentExperience + action.experiencePoints).coerceAtLeast(0)
+        repository.updateExperience(newExperience)
     }
 }
-
-//class PerformActionUseCase @Inject constructor(
-//    private val actionRepository: ActionRepository
-//) {
-//    suspend operator fun invoke(action: Action) {
-//        val currentExperience = actionRepository.getCurrentExperience()
-//        val newExperience = currentExperience + action.experiencePoints
-//        actionRepository.updateExperience(newExperience)
-//    }
-//}

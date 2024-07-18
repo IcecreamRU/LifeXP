@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">LifeXP</string>
-    <string name="current_experience">Current Experience: %d</string>
+    <string name="current_experience">Текущий опыт: %d</string>
     <string name="add_action">Добавить действие</string>
     <string name="delete_action">Удалить действие</string>
     <string name="action_name">Название действия</string>
