@@ -45,7 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
         private fun getInitialActions() = listOf(
             ActionEntity(1, "Training", 50, true),
             ActionEntity(2, "Walking", 30, true),
-            ActionEntity(3, "Smoking Hookah", -40, false)
+            ActionEntity(3, "Smoking Hookah", 40, false)
         )
     }
 }

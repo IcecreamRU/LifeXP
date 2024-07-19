@@ -11,7 +11,7 @@ interface UserExperienceDao {
     @Query("SELECT experience FROM user_experience WHERE id = 1")
     suspend fun getUserExperience(): Int
 
-    @Query("UPDATE user_experience SET experience = experience + :points WHERE id = 1")
+    @Query("UPDATE user_experience SET experience = :points WHERE id = 1")
     suspend fun updateUserExperience(points: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
