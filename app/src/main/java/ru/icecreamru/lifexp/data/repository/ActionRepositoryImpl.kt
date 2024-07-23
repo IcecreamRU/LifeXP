@@ -36,6 +36,10 @@ class ActionRepositoryImpl @Inject constructor(
         actionDao.updateAction(action.toEntity())
     }
 
-    private fun ActionEntity.toDomainModel() = Action(id, name, experiencePoints, isPositive)
+    private fun ActionEntity.toDomainModel() = Action(
+        name = name,
+        experiencePoints = experiencePoints,
+        isPositive = isPositive
+    )
     private fun Action.toEntity() = ActionEntity(id, name, experiencePoints, isPositive)
 }

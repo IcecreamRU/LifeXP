@@ -60,10 +60,15 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val newAction =
-                    Action(0, name, experiencePoints, isPositive) // ID 0 для автогенерации
+                    Action(
+                        name = name,
+                        experiencePoints = experiencePoints,
+                        isPositive = isPositive
+                    )
                 addActionUseCase(newAction)
                 loadData() // Перезагружаем данные после добавления
             } catch (e: Exception) {
+                Log.e("MainViewModel", "addNewAction: ", e)
                 _uiState.value = UiState.Error("Failed to add new action")
             }
         }

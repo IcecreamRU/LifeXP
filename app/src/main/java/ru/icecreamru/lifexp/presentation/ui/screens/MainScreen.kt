@@ -12,9 +12,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -22,6 +26,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.icecreamru.lifexp.R
 import ru.icecreamru.lifexp.data.model.Action
+import ru.icecreamru.lifexp.presentation.ui.components.AddActionDialog
 import ru.icecreamru.lifexp.presentation.ui.theme.LifeXPTheme
 import ru.icecreamru.lifexp.presentation.viewmodels.MainViewModel
 import ru.icecreamru.lifexp.presentation.viewmodels.UiState
@@ -43,7 +51,13 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
 
     when (val state = uiState) {
         is UiState.Loading -> LoadingScreen()
-        is UiState.Success -> SuccessScreen(state.actions, state.experience, viewModel::performAction)
+        is UiState.Success -> SuccessScreen(
+            state.actions,
+            state.experience,
+            viewModel::performAction,
+            viewModel::addNewAction
+        )
+
         is UiState.Error -> ErrorScreen(state.message)
     }
 }
@@ -64,18 +78,29 @@ fun ErrorScreen(message: String) {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SuccessScreen(actions: List<Action>, experience: Int, onActionClick: (Action) -> Unit) {
+fun SuccessScreen(
+    actions: List<Action>,
+    experience: Int,
+    onActionClick: (Action) -> Unit,
+    onAddClick: (String, Int, Boolean) -> Unit
+) {
+    var showAddDialog by remember { mutableStateOf(false) }
+
     Scaffold(floatingActionButton = {
         // в разработке
-//        FloatingActionButton(
-//            onClick = {  },
-//        ) {
-//            Icon(Icons.Filled.Add, "Floating action button.")
-//        }
+        FloatingActionButton(
+            onClick = {
+                showAddDialog = true
+            },
+        ) {
+            Icon(Icons.Filled.Add, "Добавление действия")
+        }
     }) {
-        Column (modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
             Text(
                 text = stringResource(id = R.string.current_experience, experience),
                 style = MaterialTheme.typography.labelLarge, //h6
@@ -84,6 +109,15 @@ fun SuccessScreen(actions: List<Action>, experience: Int, onActionClick: (Action
             ExperienceBar(experience = experience)
             Spacer(modifier = Modifier.height(16.dp))
             ActionList(actions = actions, onActionClick = onActionClick)
+        }
+
+        if (showAddDialog) {
+            AddActionDialog(onDismissRequest = {
+                showAddDialog = false
+            }) { name, amount, isPositive ->
+                onAddClick(name, amount, isPositive)
+                showAddDialog = false
+            }
         }
     }
 }
@@ -156,14 +190,27 @@ fun MainScreenErrorPreview() {
 fun MainScreenSuccessPreview() {
     LifeXPTheme {
         val sampleActions = listOf(
-            Action(1, "Training", Constants.TRAINING_EXPERIENCE, true),
-            Action(2, "Walking", Constants.WALKING_EXPERIENCE, true),
-            Action(3, "Smoking Hookah", Constants.HOOKAH_EXPERIENCE, false)
+            Action(
+                name = "Training",
+                experiencePoints = Constants.TRAINING_EXPERIENCE,
+                isPositive = true
+            ),
+            Action(
+                name = "Walking",
+                experiencePoints = Constants.WALKING_EXPERIENCE,
+                isPositive = true
+            ),
+            Action(
+                name = "Smoking Hookah",
+                experiencePoints = Constants.HOOKAH_EXPERIENCE,
+                isPositive = false
+            )
         )
         SuccessScreen(
             actions = sampleActions,
             experience = 250,
-            onActionClick = {}
+            onActionClick = {},
+            onAddClick = { _, _, _ -> }
         )
     }
 }
@@ -173,14 +220,27 @@ fun MainScreenSuccessPreview() {
 fun MainScreenDarkThemePreview() {
     LifeXPTheme(darkTheme = true) {
         val sampleActions = listOf(
-            Action(1, "Training", Constants.TRAINING_EXPERIENCE, true),
-            Action(2, "Walking", Constants.WALKING_EXPERIENCE, true),
-            Action(3, "Smoking Hookah", Constants.HOOKAH_EXPERIENCE, false)
+            Action(
+                name = "Training",
+                experiencePoints = Constants.TRAINING_EXPERIENCE,
+                isPositive = true
+            ),
+            Action(
+                name = "Walking",
+                experiencePoints = Constants.WALKING_EXPERIENCE,
+                isPositive = true
+            ),
+            Action(
+                name = "Smoking Hookah",
+                experiencePoints = Constants.HOOKAH_EXPERIENCE,
+                isPositive = false
+            )
         )
         SuccessScreen(
             actions = sampleActions,
             experience = 250,
-            onActionClick = {}
+            onActionClick = {},
+            onAddClick = { _, _, _ -> }
         )
     }
 }
@@ -190,14 +250,27 @@ fun MainScreenDarkThemePreview() {
 fun MainScreenPhonePreview() {
     LifeXPTheme {
         val sampleActions = listOf(
-            Action(1, "Training", Constants.TRAINING_EXPERIENCE, true),
-            Action(2, "Walking", Constants.WALKING_EXPERIENCE, true),
-            Action(3, "Smoking Hookah", Constants.HOOKAH_EXPERIENCE, false)
+            Action(
+                name = "Training",
+                experiencePoints = Constants.TRAINING_EXPERIENCE,
+                isPositive = true
+            ),
+            Action(
+                name = "Walking",
+                experiencePoints = Constants.WALKING_EXPERIENCE,
+                isPositive = true
+            ),
+            Action(
+                name = "Smoking Hookah",
+                experiencePoints = Constants.HOOKAH_EXPERIENCE,
+                isPositive = false
+            )
         )
         SuccessScreen(
             actions = sampleActions,
             experience = 250,
-            onActionClick = {}
+            onActionClick = {},
+            onAddClick = { _, _, _ -> }
         )
     }
 }

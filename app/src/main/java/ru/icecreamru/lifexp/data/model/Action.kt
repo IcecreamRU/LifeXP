@@ -1,4 +1,5 @@
 package ru.icecreamru.lifexp.data.model
+
 /**
  * Представляет действие, которое может выполнить пользователь, влияющее на его очки опыта.
  *
@@ -15,8 +16,8 @@ package ru.icecreamru.lifexp.data.model
  * val positiveAction = Action(1, "Выполнить задачу", 10, true)
  * val negativeAction = Action(2, "Пропустить дедлайн", 5, false)
  */
-data class Action(
-    val id: Int,
+data class Action (
+    val id: Int = 0,
     val name: String,
     val experiencePoints: Int,
     val isPositive: Boolean
