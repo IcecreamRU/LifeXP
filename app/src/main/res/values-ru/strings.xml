@@ -5,7 +5,8 @@
     <string name="delete_action">Удалить действие</string>
     <string name="action_name">Название действия</string>
     <string name="experience_points">Очки опыта</string>
-    <string name="is_positive">Положительное действие</string>
+    <string name="positive">Положительное</string>
+    <string name="negative">Негативное</string>
     <string name="save">Сохранить</string>
     <string name="cancel">Отмена</string>
     <string name="error_loading_data">Ошибка загрузки данных: %s</string>
@@ -19,5 +20,13 @@
     <string name="training">Тренировка</string>
     <string name="walking">Прогулка</string>
     <string name="smoking_hookah">Курение кальяна</string>
-    <string name="experience">Опыт</string>
+    <string name="experience">Опыт:</string>
+    <string name="edit_action">Редактировать</string>
+    <string name="name">Название</string>
+    <string name="sum">Сумма</string>
+    <string name="delete_confirmation_title">Подтверждение удаления</string>
+    <string name="delete_confirmation_text">Вы уверены, что хотите удалить это действие?</string>
+    <string name="delete">Удалить</string>
+    <string name="add">Добавить</string>
+
 </resources>

@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name" translatable="false">LifeXP</string>
     <string name="current_experience">Current Experience: %d</string>
-    <string name="experience">Experience</string>
+    <string name="experience">Experience:</string>
     <string name="add_action">Add Action</string>
     <string name="delete_action">Delete Action</string>
     <string name="action_name">Action Name</string>
     <string name="experience_points">Experience Points</string>
-    <string name="is_positive">Positive Action</string>
+    <string name="positive">Positive</string>
+    <string name="negative">Negative</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="error_loading_data">Error loading data: %s</string>
@@ -20,4 +21,12 @@
     <string name="training">Training</string>
     <string name="walking">Walking</string>
     <string name="smoking_hookah">Smoking Hookah</string>
+    <string name="edit_action">Edit</string>
+    <string name="name">Name</string>
+    <string name="sum">Sum</string>
+    <string name="action_type">Action type:</string>
+    <string name="delete_confirmation_title">Delete Confirmation</string>
+    <string name="delete_confirmation_text">Are you sure you want to delete this action?</string>
+    <string name="delete">Delete</string>
+    <string name="add">Add</string>
 </resources>

@@ -17,7 +17,10 @@ class ActionRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateExperience(experiencePoints: Int) {
-        userExperienceDao.updateUserExperience(experiencePoints)
+        val resultExperience = if (experiencePoints > 1000) {
+            1000
+        } else experiencePoints
+        userExperienceDao.updateUserExperience(resultExperience)
     }
 
     override suspend fun getCurrentExperience(): Int {
@@ -37,9 +40,11 @@ class ActionRepositoryImpl @Inject constructor(
     }
 
     private fun ActionEntity.toDomainModel() = Action(
+        id = id,
         name = name,
         experiencePoints = experiencePoints,
         isPositive = isPositive
     )
+
     private fun Action.toEntity() = ActionEntity(id, name, experiencePoints, isPositive)
 }

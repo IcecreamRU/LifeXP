@@ -14,6 +14,7 @@ import ru.icecreamru.lifexp.domain.usecase.DeleteActionUseCase
 import ru.icecreamru.lifexp.domain.usecase.GetAllActionsUseCase
 import ru.icecreamru.lifexp.domain.usecase.GetCurrentExperienceUseCase
 import ru.icecreamru.lifexp.domain.usecase.PerformActionUseCase
+import ru.icecreamru.lifexp.domain.usecase.UpdateActionUseCase
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,12 +23,13 @@ class MainViewModel @Inject constructor(
     private val performActionUseCase: PerformActionUseCase,
     private val getCurrentExperienceUseCase: GetCurrentExperienceUseCase,
     private val addActionUseCase: AddActionUseCase,
+    private val updateActionUseCase: UpdateActionUseCase,
     private val deleteActionUseCase: DeleteActionUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
-
+    private var previousExperience = 0
     init {
         loadData()
     }
@@ -37,7 +39,9 @@ class MainViewModel @Inject constructor(
             try {
                 val actions = getAllActionsUseCase()
                 val experience = getCurrentExperienceUseCase()
-                _uiState.value = UiState.Success(actions, experience)
+                val showMilestoneNotification = previousExperience in 1..999 && experience >= 1000
+                previousExperience = experience
+                _uiState.value = UiState.Success(actions, experience, showMilestoneNotification)
             } catch (e: Exception) {
                 Log.e(javaClass::getName.name, "loadData: ", e)
                 _uiState.value = UiState.Error("Failed to load data")
@@ -74,6 +78,17 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun updateAction(action: Action) {
+        viewModelScope.launch {
+            try {
+                updateActionUseCase(action)
+                loadData() // Перезагружаем данные после добавления
+            } catch (e: Exception) {
+                _uiState.value = UiState.Error("Failed to update action")
+            }
+        }
+    }
+
     fun deleteAction(actionId: Int) {
         viewModelScope.launch {
             try {
@@ -84,10 +99,19 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun dismissMilestoneNotification() {
+        viewModelScope.launch {
+            val currentState = _uiState.value
+            if (currentState is UiState.Success) {
+                _uiState.value = currentState.copy(showMilestoneNotification = false)
+            }
+        }
+    }
 }
 
 sealed class UiState {
     object Loading : UiState()
-    data class Success(val actions: List<Action>, val experience: Int) : UiState()
+    data class Success(val actions: List<Action>, val experience: Int, val showMilestoneNotification: Boolean = false) : UiState()
     data class Error(val message: String) : UiState()
 }
