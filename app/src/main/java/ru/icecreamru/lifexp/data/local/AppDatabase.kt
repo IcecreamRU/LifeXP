@@ -34,10 +34,10 @@ abstract class AppDatabase : RoomDatabase() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         CoroutineScope(Dispatchers.IO).launch {
-                            getInstance(context).actionDao().insertActions(getInitialActions(context))
                             getInstance(context).userExperienceDao().insertUserExperience(
                                 UserExperienceEntity(experience = 0)
                             )
+                            getInstance(context).actionDao().insertActions(getInitialActions(context))
                         }
                     }
                 })

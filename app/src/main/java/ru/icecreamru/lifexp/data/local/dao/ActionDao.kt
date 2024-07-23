@@ -5,12 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 import ru.icecreamru.lifexp.data.local.entity.ActionEntity
 
 @Dao
 interface ActionDao {
     @Query("SELECT * FROM actions")
-    suspend fun getAllActions(): List<ActionEntity>
+    fun getAllActions(): Flow<List<ActionEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAction(action: ActionEntity)

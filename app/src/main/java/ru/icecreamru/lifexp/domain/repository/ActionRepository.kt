@@ -1,5 +1,6 @@
 package ru.icecreamru.lifexp.domain.repository
 
+import kotlinx.coroutines.flow.Flow
 import ru.icecreamru.lifexp.data.model.Action
 
 interface ActionRepository {
@@ -8,7 +9,7 @@ interface ActionRepository {
      *
      * @return Список объектов Action.
      */
-    suspend fun getAllActions(): List<Action>
+    suspend fun getAllActions(): Flow<List<Action>>
 
     /**
      * Обновляет опыт пользователя.

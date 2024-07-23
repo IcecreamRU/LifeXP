@@ -30,6 +30,7 @@ class MainViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
     private var previousExperience = 0
+
     init {
         loadData()
     }
@@ -41,7 +42,9 @@ class MainViewModel @Inject constructor(
                 val experience = getCurrentExperienceUseCase()
                 val showMilestoneNotification = previousExperience in 1..999 && experience >= 1000
                 previousExperience = experience
-                _uiState.value = UiState.Success(actions, experience, showMilestoneNotification)
+                actions.collect { data ->
+                    _uiState.value = UiState.Success(data, experience, showMilestoneNotification)
+                }
             } catch (e: Exception) {
                 Log.e(javaClass::getName.name, "loadData: ", e)
                 _uiState.value = UiState.Error("Failed to load data")
@@ -112,6 +115,11 @@ class MainViewModel @Inject constructor(
 
 sealed class UiState {
     object Loading : UiState()
-    data class Success(val actions: List<Action>, val experience: Int, val showMilestoneNotification: Boolean = false) : UiState()
+    data class Success(
+        val actions: List<Action>,
+        val experience: Int,
+        val showMilestoneNotification: Boolean = false
+    ) : UiState()
+
     data class Error(val message: String) : UiState()
 }

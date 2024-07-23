@@ -1,5 +1,7 @@
 package ru.icecreamru.lifexp.data.repository
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import ru.icecreamru.lifexp.data.local.dao.ActionDao
 import ru.icecreamru.lifexp.data.local.dao.UserExperienceDao
 import ru.icecreamru.lifexp.data.local.entity.ActionEntity
@@ -12,8 +14,8 @@ class ActionRepositoryImpl @Inject constructor(
     private val userExperienceDao: UserExperienceDao
 ) : ActionRepository {
 
-    override suspend fun getAllActions(): List<Action> {
-        return actionDao.getAllActions().map { it.toDomainModel() }
+    override suspend fun getAllActions(): Flow<List<Action>> {
+        return actionDao.getAllActions().map { actions -> actions.map { it.toDomainModel() } }
     }
 
     override suspend fun updateExperience(experiencePoints: Int) {
