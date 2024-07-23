@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context, AppDatabase::class.java, "lifexp_database")
-                .addCallback(object : RoomDatabase.Callback() {
+                .addCallback(object : Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         CoroutineScope(Dispatchers.IO).launch {
