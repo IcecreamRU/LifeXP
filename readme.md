@@ -32,5 +32,3 @@ LifeXP - это Android-приложение, которое геймифици�
 ## 📞 Контакты
 
 [Денис] - [https://t.me/icecreamdev]
-
-Ссылка на проект: [https://github.com/IcecreamRU/LifeXP](https://github.com/IcecreamRU/LifeXP)
